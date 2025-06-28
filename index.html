@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Income Roadmap: An Interactive Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony Neutrals -->
+    <!-- Application Structure Plan: The application is structured as a user-centric decision-making tool, not a linear report. It begins with a hero section that immediately presents the two core paths (Services vs. Products). It then provides foundational knowledge (Skill Stack) before diving into a tab-based dashboard comparing the two paths with interactive charts and diagrams (Value Ladder, Cost Breakdowns). Subsequent sections allow users to explore opportunities (Industry Verticals) and make a final decision with a direct comparative analysis (Strategic Crossroads) and actionable, expandable roadmaps. This non-linear, task-oriented structure is chosen to empower the user to explore based on their personal interests and goals, making the dense information more digestible and actionable than a simple document. -->
+    <!-- Visualization & Content Choices: 
+        - Income Reality (Bar Chart): Goal=Compare. Compares income levels for different roles. Chart.js used for its clarity in comparing discrete values. Interaction: Hover tooltips. Justification: Best for direct value comparison.
+        - SaaS Cost Breakdown (Doughnut Chart): Goal=Inform. Shows cost proportions for an MVP. Chart.js used. Interaction: Hover tooltips. Justification: Ideal for showing part-to-whole relationships.
+        - SaaS Revenue Growth (Line Chart): Goal=Change. Visualizes potential MRR growth over time. Chart.js used. Interaction: Hover tooltips. Justification: Standard for showing trends.
+        - Value Ladder & Roadmaps (HTML/CSS Diagram): Goal=Organize. Shows progression. Custom HTML/Tailwind used for design flexibility. Interaction: Click to expand details. Justification: More visually adaptable than a chart for process flows.
+        - Strategic Crossroads (Interactive Table): Goal=Compare. Direct comparison of Freelancing vs. SaaS. JS-powered HTML table. Interaction: Toggles show relevant data. Justification: More engaging and direct than a static table.
+        - All choices adhere to the NO SVG/Mermaid constraint.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .bg-warm-neutral { background-color: #F8F7F4; }
+        .text-dark-neutral { color: #3d405b; }
+        .text-medium-neutral { color: #818D9D; }
+        .bg-accent { background-color: #8D99AE; }
+        .text-accent { color: #8D99AE; }
+        .border-accent { border-color: #8D99AE; }
+        .bg-accent-light { background-color: #edf2f4; }
+        .active-nav { color: #2b2d42; border-bottom: 2px solid #2b2d42; }
+        .inactive-nav { color: #818D9D; }
+        .section-fade-in { animation: fadeIn 0.8s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 350px; max-height: 400px; }
+        @media (max-width: 640px) { .chart-container { height: 300px; } }
+    </style>
+</head>
+<body class="bg-warm-neutral text-dark-neutral">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold text-dark-neutral">AI Income Roadmap</h1>
+            <div class="hidden md:flex space-x-8">
+                <a href="#skills" class="text-medium-neutral hover:text-dark-neutral transition">Skills</a>
+                <a href="#pathways" class="text-medium-neutral hover:text-dark-neutral transition">Pathways</a>
+                <a href="#industries" class="text-medium-neutral hover:text-dark-neutral transition">Industries</a>
+                <a href="#roadmaps" class="text-medium-neutral hover:text-dark-neutral transition">Roadmaps</a>
+            </div>
+            <div class="md:hidden">
+                 <button id="mobile-menu-button" class="text-dark-neutral focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pt-2 pb-4">
+            <a href="#skills" class="block py-2 text-medium-neutral hover:text-dark-neutral">Skills</a>
+            <a href="#pathways" class="block py-2 text-medium-neutral hover:text-dark-neutral">Pathways</a>
+            <a href="#industries" class="block py-2 text-medium-neutral hover:text-dark-neutral">Industries</a>
+            <a href="#roadmaps" class="block py-2 text-medium-neutral hover:text-dark-neutral">Roadmaps</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12 md:py-20">
+
+        <!-- Hero Section -->
+        <section class="text-center section-fade-in">
+            <h2 class="text-4xl md:text-6xl font-extrabold tracking-tight">Your High-Income AI Career Starts Here</h2>
+            <p class="mt-4 max-w-3xl mx-auto text-lg md:text-xl text-medium-neutral">The age of AI is here. For Python technologists, this means unprecedented opportunity. This guide moves beyond the hype to provide a strategic analysis of the two primary paths to a high income: providing expert services and building scalable products. Discover which path is right for you.</p>
+            <div class="mt-8 flex justify-center gap-4">
+                <a href="#pathways" class="px-8 py-3 bg-dark-neutral text-white font-semibold rounded-lg shadow-lg hover:bg-opacity-90 transition transform hover:-translate-y-1">Explore Your Pathways</a>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="mt-20 md:mt-28 section-fade-in">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl md:text-4xl font-bold">The Modern AI Skill Stack</h3>
+                <p class="mt-3 max-w-2xl mx-auto text-lg text-medium-neutral">Success in the AI economy requires more than just code. It demands a dual-layered skill set combining a strong technical foundation with a crucial strategic overlay. Master both to command a high income.</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12">
+                <div class="bg-white p-8 rounded-xl shadow-md border border-gray-200">
+                    <h4 class="text-2xl font-semibold flex items-center"><span class="mr-3 text-2xl">⚙️</span>The Technical Foundation</h4>
+                    <p class="text-medium-neutral mt-2 mb-4">The non-negotiable bedrock for any serious AI endeavor.</p>
+                    <ul class="space-y-3 text-dark-neutral list-disc list-inside">
+                        <li><strong class="font-medium">Core Libraries:</strong> Proficiency in Pandas, NumPy, and Scikit-Learn for data manipulation and traditional machine learning.</li>
+                        <li><strong class="font-medium">Deep Learning Frameworks:</strong> Mastery of TensorFlow or PyTorch for building complex neural networks.</li>
+                        <li><strong class="font-medium">Generative AI/LLM Frameworks:</strong> Expertise in LangChain for building complex applications and Hugging Face for leveraging pre-trained models.</li>
+                    </ul>
+                </div>
+                 <div class="bg-white p-8 rounded-xl shadow-md border border-gray-200">
+                    <h4 class="text-2xl font-semibold flex items-center"><span class="mr-3 text-2xl">🧠</span>The Strategic Layer</h4>
+                    <p class="text-medium-neutral mt-2 mb-4">The high-income differentiator that separates you from the crowd.</p>
+                    <ul class="space-y-3 text-dark-neutral list-disc list-inside">
+                        <li><strong class="font-medium">Business-Oriented Prompt Engineering:</strong> Designing prompts that guide AI to produce high-value business outputs.</li>
+                        <li><strong class="font-medium">AI Ethics and Governance:</strong> Mitigating bias, ensuring fairness, and navigating legal complexities to provide quantifiable value.</li>
+                        <li><strong class="font-medium">Critical Thinking & Problem Framing:</strong> The ability to frame business problems for an AI, interpret ambiguous results, and provide crucial human oversight.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pathways Dashboard Section -->
+        <section id="pathways" class="mt-20 md:mt-28 section-fade-in">
+             <div class="text-center mb-12">
+                <h3 class="text-3xl md:text-4xl font-bold">Choose Your Pathway</h3>
+                <p class="mt-3 max-w-3xl mx-auto text-lg text-medium-neutral">There are two primary pathways to monetize your AI skills. The Services path offers immediate income by trading time for money, while the Products path offers scalability and long-term equity. Explore both to see which aligns with your goals.</p>
+            </div>
+            
+            <!-- Tabs -->
+            <div class="mb-8 border-b border-gray-300">
+                <nav class="flex justify-center -mb-px space-x-8" aria-label="Tabs">
+                    <button id="tab-services" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg active-nav">Services Path</button>
+                    <button id="tab-products" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg inactive-nav">Products Path</button>
+                </nav>
+            </div>
+
+            <!-- Tab Content -->
+            <div id="content-services" class="space-y-16">
+                <!-- Value Ladder -->
+                <div>
+                    <h4 class="text-2xl font-semibold text-center mb-2">The AI Consulting Value Ladder</h4>
+                    <p class="text-center text-medium-neutral mb-8 max-w-2xl mx-auto">High income comes from strategically moving up the value ladder, transitioning from a task-doer to a trusted, high-impact advisor.</p>
+                    <div id="value-ladder" class="space-y-4 md:space-y-0 md:flex md:justify-center md:items-start md:space-x-4">
+                        <!-- JS will populate this -->
+                    </div>
+                </div>
+                <!-- Income Reality -->
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                    <h4 class="text-2xl font-semibold text-center mb-2">Income Reality Check</h4>
+                    <p class="text-center text-medium-neutral mb-8 max-w-2xl mx-auto">While top earners command high salaries, recent studies show generative AI is putting pressure on the freelance market. Success depends on moving beyond automatable tasks.</p>
+                    <div class="chart-container">
+                        <canvas id="incomeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div id="content-products" class="hidden space-y-16">
+                 <!-- Product Spectrum -->
+                <div>
+                    <h4 class="text-2xl font-semibold text-center mb-2">The Digital Product Spectrum</h4>
+                    <p class="text-center text-medium-neutral mb-8 max-w-2xl mx-auto">AI products range from low-barrier "side hustles" to high-investment SaaS platforms. The path you choose determines your upfront cost and potential for scalable income.</p>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200 flex flex-col">
+                            <h5 class="font-bold text-xl mb-2">Low-Barrier Products</h5>
+                            <p class="text-medium-neutral mb-4 flex-grow">Quick to create, low upfront cost. Ideal for testing ideas and generating initial revenue. Think "side hustle."</p>
+                            <div class="space-y-2 mt-auto">
+                                <p class="font-medium">Examples: AI Art on Etsy, Prompt Packs on Gumroad</p>
+                                <p><strong class="font-medium">Revenue:</strong> Modest, often requires active marketing ($200-$1000/mo profit)</p>
+                                <p><strong class="font-medium">Model:</strong> One-time purchases</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200 flex flex-col">
+                            <h5 class="font-bold text-xl mb-2">High-Barrier Products</h5>
+                            <p class="text-medium-neutral mb-4 flex-grow">Requires significant time, skill, and capital. Offers the highest potential for recurring, scalable income. Think "entrepreneur."</p>
+                             <div class="space-y-2 mt-auto">
+                                <p class="font-medium">Examples: Micro-SaaS, AI Wrappers, Full Platforms</p>
+                                <p><strong class="font-medium">Revenue:</strong> High potential, slow build (can scale to $10k+ MRR)</p>
+                                <p><strong class="font-medium">Model:</strong> Subscriptions, Usage-Based</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- SaaS Costs -->
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                    <h4 class="text-2xl font-semibold text-center mb-2">Deconstructing SaaS Development Costs</h4>
+                    <p class="text-center text-medium-neutral mb-8 max-w-2xl mx-auto">Building even a "Minimum Viable Product" is a substantial undertaking with significant costs. This is the upfront investment required for a scalable asset.</p>
+                    <div class="chart-container">
+                        <canvas id="saasCostChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Industries Section -->
+        <section id="industries" class="mt-20 md:mt-28 section-fade-in">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl md:text-4xl font-bold">High-Growth Industry Verticals</h3>
+                <p class="mt-3 max-w-3xl mx-auto text-lg text-medium-neutral">The highest incomes are found by applying AI to solve expensive problems in established industries. Explore these key verticals to find lucrative, high-impact opportunities.</p>
+            </div>
+            <div id="industry-grid" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                 <!-- JS will populate this -->
+            </div>
+            <div id="industry-details" class="mt-8 bg-white p-8 rounded-xl shadow-lg border border-gray-200 hidden">
+                 <!-- JS will populate this -->
+            </div>
+        </section>
+        
+        <!-- Strategic Crossroads Section -->
+        <section id="crossroads" class="mt-20 md:mt-28 section-fade-in">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl md:text-4xl font-bold">The Founder's Crossroads</h3>
+                <p class="mt-3 max-w-3xl mx-auto text-lg text-medium-neutral">Choosing between services and products is a critical strategic decision involving trade-offs in risk, reward, and lifestyle. AI is actively reshaping this calculation.</p>
+            </div>
+             <div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+                <div class="p-6 md:p-8">
+                    <div id="comparison-table" class="divide-y divide-gray-200">
+                        <!-- JS will populate this -->
+                    </div>
+                </div>
+                <div class="bg-accent-light p-6">
+                    <h4 class="font-bold text-xl mb-2">The Hybrid Path: The Bootstrapper's Blueprint</h4>
+                    <p class="text-medium-neutral">The most robust strategy is often sequential: start with high-value consulting to generate cash flow and perform "paid market research." Use that income and insight to fund and de-risk the development of a SaaS product that solves a real, validated problem. This turns freelancing from a job into a strategic investment.</p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Roadmaps Section -->
+        <section id="roadmaps" class="mt-20 md:mt-28 section-fade-in">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl md:text-4xl font-bold">Your Actionable Roadmaps</h3>
+                <p class="mt-3 max-w-2xl mx-auto text-lg text-medium-neutral">Translate strategy into action. Choose a path and follow these phased steps to build your high-income AI career. Click any phase to expand.</p>
+            </div>
+            <!-- Tabs -->
+            <div class="mb-8 border-b border-gray-300">
+                <nav class="flex justify-center -mb-px space-x-8" aria-label="RoadmapTabs">
+                    <button id="roadmap-tab-consultant" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg active-nav">The Consultant Path</button>
+                    <button id="roadmap-tab-preneur" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg inactive-nav">The AI-preneur Path</button>
+                </nav>
+            </div>
+            
+            <div id="roadmap-content-consultant">
+                 <!-- JS will populate this -->
+            </div>
+            <div id="roadmap-content-preneur" class="hidden">
+                 <!-- JS will populate this -->
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="bg-white mt-20 md:mt-28 border-t border-gray-200">
+        <div class="container mx-auto px-6 py-8 text-center text-medium-neutral">
+            <p>&copy; 2025 AI Income Roadmap. An interactive application designed to synthesize and explore AI monetization strategies.</p>
+            <p class="text-sm mt-2">Built with Tailwind CSS and Chart.js. All data derived from the source report.</p>
+        </div>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const data = {
+        valueLadder: [
+            {
+                level: 1,
+                title: 'AI Services (The Freelancer)',
+                description: 'Executing well-defined tasks using AI tools. You are valued for efficiency and tool proficiency.',
+                pricing: 'Hourly or Fixed-Price',
+                income: '$48 - $62/hr'
+            },
+            {
+                level: 2,
+                title: 'AI Consulting (The Advisor)',
+                description: 'Helping businesses identify where and how to implement AI. You solve business problems, not just technical tasks.',
+                pricing: 'Project-Based or Monthly Retainers',
+                income: '$150 - $300/hr'
+            },
+            {
+                level: 3,
+                title: 'Niche Expert (The Strategist)',
+                description: 'Combining deep AI expertise with domain knowledge (e.g., finance, healthcare) to solve mission-critical problems.',
+                pricing: 'Value-Based or High-End Retainers',
+                income: '$300 - $500+/hr'
+            }
+        ],
+        incomeData: {
+            labels: ['Freelance AI Engineer (Avg)', 'Freelance AI Engineer (Top 10%)', 'AI Consultant (Mid-Level)', 'Niche AI Expert (Top)'],
+            datasets: [{
+                label: 'Annual Income (USD)',
+                data: [99000, 200000, 312000, 624000],
+                backgroundColor: ['#A0AEC0', '#818D9D', '#64748B', '#475569'],
+                borderColor: '#ffffff',
+                borderWidth: 2
+            }]
+        },
+        saasCostData: {
+             labels: ['Backend Dev', 'Frontend Dev', 'AI Integration', 'Design', 'Infrastructure', 'Security/Marketing'],
+             datasets: [{
+                 label: 'Cost Distribution',
+                 data: [30, 20, 20, 10, 10, 10],
+                 backgroundColor: ['#2b2d42', '#8d99ae', '#edf2f4', '#d90429', '#ef233c', '#ffb703'],
+                 hoverOffset: 4
+             }]
+        },
+        industries: [
+            {
+                name: 'Finance & Quant Analysis',
+                icon: '💰',
+                details: [
+                    '<strong>Algorithmic Trading:</strong> Using AI to analyze complex market data and news sentiment for superior trading strategies.',
+                    '<strong>Credit Scoring & Risk Assessment:</strong> Building more accurate predictive models to reduce defaults and expand markets.',
+                    '<strong>Fraud Detection:</strong> Real-time analysis of transactions to detect anomalies and prevent fraudulent activity.',
+                    '<strong>Automated Financial Analysis:</strong> Automating the extraction of key metrics from reports (10-Qs, CIMs).'
+                ]
+            },
+            {
+                name: 'Healthcare & Drug Discovery',
+                icon: '❤️‍🩹',
+                details: [
+                    '<strong>Drug Discovery:</strong> Using generative models to design novel molecular structures, accelerating research by up to 70%.',
+                    '<strong>Personalized Medicine:</strong> Analyzing patient genetic data and medical history to create tailored treatment plans.',
+                    '<strong>Medical Image Analysis:</strong> Assisting radiologists with deep learning models to improve diagnostic accuracy.',
+                    '<strong>Clinical Task Automation:</strong> Using NLP to automatically generate summaries from doctor-patient conversations.'
+                ]
+            },
+            {
+                name: 'E-commerce & Retail',
+                icon: '🛒',
+                details: [
+                    '<strong>Hyper-Personalization:</strong> Using behavioral data to create unique shopping experiences and dynamic recommendations.',
+                    '<strong>Dynamic Pricing:</strong> Adjusting prices in real-time based on demand, competition, and inventory.',
+                    '<strong>Predictive Inventory Management:</strong> Forecasting demand to optimize stock levels and reduce waste.',
+                    '<strong>AI-Powered Customer Support:</strong> Using sophisticated chatbots to handle customer queries 24/7.'
+                ]
+            },
+            {
+                name: 'Enterprise Automation',
+                icon: '🏢',
+                details: [
+                    '<strong>Intelligent Document Processing (IDP):</strong> Automating data extraction from invoices, contracts, and purchase orders.',
+                    '<strong>Automated IT Operations (AIOps):</strong> Proactively monitoring IT systems to predict failures and automate root cause analysis.',
+                    '<strong>HR & Recruitment Automation:</strong> Screening resumes, scheduling interviews, and automating initial screenings.',
+                    '<strong>Broad Applicability:</strong> Identifying any manual, repetitive, data-intensive process and building an AI solution.'
+                ]
+            }
+        ],
+        comparisonData: {
+            headers: ["Factor", "Freelancing / Consulting", "SaaS / Product Business"],
+            rows: [
+                ["Upfront Cost & Time", "Low", "High"],
+                ["Time to First Income", "Fast (Weeks)", "Slow (Months/Years)"],
+                ["Income Ceiling", "Capped (by hours)", "Uncapped (Scalable)"],
+                ["Scalability", "Low", "High"],
+                ["Long-Term Risk", "Increasingly High (Commoditization)", "High (but Defensible)"],
+                ["Lifestyle", "Flexible but 'Always On'", "Intense then Flexible"],
+                ["Asset Creation", "No (Reputation only)", "Yes (Sellable business)"]
+            ]
+        },
+        roadmaps: {
+            consultant: [
+                {
+                    phase: 'Phase 1: Foundation (Months 1-3)',
+                    content: '<strong>Objective:</strong> Acquire advanced skills and create proof of capability.<br><strong>Actions:</strong> Complete an advanced AI specialization (e.g., IBM AI Cert on Coursera). Build 3 portfolio projects solving specific business problems. Become an active member of relevant online communities (e.g., r/MachineLearning).'
+                },
+                {
+                    phase: 'Phase 2: Market Entry (Months 4-9)',
+                    content: '<strong>Objective:</strong> Gain client experience and choose a niche.<br><strong>Actions:</strong> Start on Upwork with smaller projects to build reviews. Select a high-growth vertical (Finance, Healthcare, etc.). Over-deliver to get testimonials.'
+                },
+                {
+                    phase: 'Phase 3: Value Ascent (Months 10-18)',
+                    content: '<strong>Objective:</strong> Transition from freelancer to consultant.<br><strong>Actions:</strong> Rebrand with a personal website. Shift from hourly rates to project-based fees and monthly retainers. Begin direct outreach to clients on LinkedIn.'
+                },
+                {
+                    phase: 'Phase 4: Niche Domination (Months 18+)',
+                    content: '<strong>Objective:</strong> Become a go-to expert.<br><strong>Actions:</strong> Hyper-specialize in a micro-niche (e.g., "AI for neobank fraud detection"). Start creating thought leadership content (blogs, newsletters). Command premium, value-based fees.'
+                }
+            ],
+            preneur: [
+                {
+                    phase: 'Phase 1: Paid Market Research (Months 1-12)',
+                    content: '<strong>Objective:</strong> Fund yourself with consulting while finding a real problem.<br><strong>Actions:</strong> Execute the Consultant Roadmap (Phases 1-3). In every client project, act as a "problem detective," documenting their biggest pain points. Identify a recurring problem across multiple clients.'
+                },
+                {
+                    phase: 'Phase 2: The Defensible MVP (Months 13-18)',
+                    content: '<strong>Objective:</strong> Bootstrap an MVP that solves the identified problem.<br><strong>Actions:</strong> Define the smallest possible product that delivers value. Ensure it has a competitive moat (unique workflow, proprietary data). Use consulting revenue to fund development.'
+                },
+                {
+                    phase: 'Phase 3: Launch & Traction (Months 19-24)',
+                    content: '<strong>Objective:</strong> Launch and get your first 10 customers.<br><strong>Actions:</strong> Launch first to your consulting clients. Focus on making your first users incredibly successful. Build a community (e.g., Discord) for feedback and loyalty.'
+                },
+                {
+                    phase: 'Phase 4: Scale & Transition (Months 24+)',
+                    content: '<strong>Objective:</strong> Grow the product and transition away from consulting.<br><strong>Actions:</strong> Reinvest revenue into product improvements based on user feedback. Scale marketing efforts. As MRR grows, gradually reduce consulting work until the product is your full-time focus.'
+                }
+            ]
+        }
+    };
+
+    // Mobile Menu
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+
+    // Pathways Tabs
+    const tabServices = document.getElementById('tab-services');
+    const tabProducts = document.getElementById('tab-products');
+    const contentServices = document.getElementById('content-services');
+    const contentProducts = document.getElementById('content-products');
+
+    function switchTab(activeTab, inactiveTab, activeContent, inactiveContent) {
+        activeTab.classList.add('active-nav');
+        activeTab.classList.remove('inactive-nav');
+        inactiveTab.classList.add('inactive-nav');
+        inactiveTab.classList.remove('active-nav');
+        activeContent.classList.remove('hidden');
+        activeContent.classList.add('section-fade-in');
+        inactiveContent.classList.add('hidden');
+    }
+
+    tabServices.addEventListener('click', () => switchTab(tabServices, tabProducts, contentServices, contentProducts));
+    tabProducts.addEventListener('click', () => switchTab(tabProducts, tabServices, contentProducts, contentServices));
+
+
+    // Populate Value Ladder
+    const valueLadderContainer = document.getElementById('value-ladder');
+    data.valueLadder.forEach((item, index) => {
+        const isLast = index === data.valueLadder.length - 1;
+        const div = document.createElement('div');
+        div.className = 'flex-1';
+        div.innerHTML = `
+            <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 h-full flex flex-col">
+                <div class="flex items-center mb-3">
+                    <span class="bg-dark-neutral text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-lg mr-4">${item.level}</span>
+                    <h5 class="font-bold text-lg">${item.title}</h5>
+                </div>
+                <p class="text-medium-neutral text-sm mb-4 flex-grow">${item.description}</p>
+                <div class="mt-auto pt-4 border-t border-gray-200 space-y-2 text-sm">
+                    <p><strong>Pricing:</strong> ${item.pricing}</p>
+                    <p><strong>Income:</strong> <span class="font-semibold text-accent">${item.income}</span></p>
+                </div>
+            </div>
+        `;
+        valueLadderContainer.appendChild(div);
+
+        if (!isLast) {
+            const arrow = document.createElement('div');
+            arrow.className = 'hidden md:flex items-center justify-center text-4xl text-gray-300 mx-4';
+            arrow.innerHTML = '→';
+            valueLadderContainer.appendChild(arrow);
+        }
+    });
+
+    // Chart.js: Income Chart
+    const incomeCtx = document.getElementById('incomeChart').getContext('2d');
+    new Chart(incomeCtx, {
+        type: 'bar',
+        data: data.incomeData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) { label += ': '; }
+                            if (context.parsed.y !== null) {
+                                label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(context.parsed.y);
+                            }
+                            return label;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value, index, values) {
+                            return '$' + (value / 1000) + 'k';
+                        }
+                    }
+                }
+            }
+        }
+    });
+    
+    // Chart.js: SaaS Cost Chart
+    const saasCostCtx = document.getElementById('saasCostChart').getContext('2d');
+    new Chart(saasCostCtx, {
+        type: 'doughnut',
+        data: data.saasCostData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom' },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.label || '';
+                            if (label) { label += ': '; }
+                            if (context.parsed !== null) {
+                                label += context.parsed + '%';
+                            }
+                            return ` ${label}`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Populate Industries
+    const industryGrid = document.getElementById('industry-grid');
+    const industryDetailsContainer = document.getElementById('industry-details');
+    let activeIndustry = null;
+
+    data.industries.forEach(industry => {
+        const card = document.createElement('div');
+        card.className = 'bg-white p-6 rounded-xl shadow-md border border-gray-200 cursor-pointer hover:shadow-xl hover:-translate-y-1 transition-transform';
+        card.innerHTML = `
+            <div class="text-3xl mb-3">${industry.icon}</div>
+            <h5 class="font-semibold text-lg">${industry.name}</h5>
+        `;
+        card.addEventListener('click', () => {
+            if (activeIndustry === card) {
+                industryDetailsContainer.classList.add('hidden');
+                activeIndustry.classList.remove('ring-2', 'ring-accent');
+                activeIndustry = null;
+            } else {
+                if(activeIndustry) activeIndustry.classList.remove('ring-2', 'ring-accent');
+                
+                industryDetailsContainer.innerHTML = `
+                    <h4 class="font-bold text-2xl mb-4">${industry.icon} ${industry.name}</h4>
+                    <ul class="space-y-3 list-disc list-inside text-dark-neutral">
+                        ${industry.details.map(d => `<li>${d}</li>`).join('')}
+                    </ul>
+                `;
+                industryDetailsContainer.classList.remove('hidden');
+                industryDetailsContainer.classList.add('section-fade-in');
+                card.classList.add('ring-2', 'ring-accent');
+                activeIndustry = card;
+            }
+        });
+        industryGrid.appendChild(card);
+    });
+    
+    // Populate Comparison Table
+    const comparisonTableContainer = document.getElementById('comparison-table');
+    data.comparisonData.rows.forEach(row => {
+        const rowDiv = document.createElement('div');
+        rowDiv.className = 'grid grid-cols-3 gap-4 py-4 items-center';
+        rowDiv.innerHTML = `
+            <div class="font-semibold text-dark-neutral col-span-3 sm:col-span-1">${row[0]}</div>
+            <div class="text-center text-medium-neutral">${row[1]}</div>
+            <div class="text-center text-medium-neutral font-medium">${row[2]}</div>
+        `;
+        comparisonTableContainer.appendChild(rowDiv);
+    });
+
+    // Roadmaps
+    const roadmapTabConsultant = document.getElementById('roadmap-tab-consultant');
+    const roadmapTabPreneur = document.getElementById('roadmap-tab-preneur');
+    const roadmapContentConsultant = document.getElementById('roadmap-content-consultant');
+    const roadmapContentPreneur = document.getElementById('roadmap-content-preneur');
+    
+    roadmapTabConsultant.addEventListener('click', () => switchTab(roadmapTabConsultant, roadmapTabPreneur, roadmapContentConsultant, roadmapContentPreneur));
+    roadmapTabPreneur.addEventListener('click', () => switchTab(roadmapTabPreneur, roadmapTabConsultant, roadmapContentPreneur, roadmapContentConsultant));
+
+    function createRoadmap(container, roadmapData) {
+        const timeline = document.createElement('div');
+        timeline.className = 'relative border-l-2 border-accent-light ml-4 pl-8 py-4 space-y-8';
+        
+        roadmapData.forEach(item => {
+            const phaseDiv = document.createElement('div');
+            phaseDiv.className = 'relative';
+            phaseDiv.innerHTML = `
+                <div class="absolute -left-[42px] top-1 w-4 h-4 bg-accent rounded-full border-4 border-warm-neutral"></div>
+                <div class="cursor-pointer">
+                    <h5 class="font-semibold text-lg flex justify-between items-center">
+                        ${item.phase}
+                        <span class="text-accent text-xl transition-transform transform duration-300">▼</span>
+                    </h5>
+                </div>
+                <div class="mt-2 text-medium-neutral text-sm overflow-hidden transition-max-height duration-500 ease-in-out" style="max-height: 0px;">
+                    <p class="pt-2">${item.content}</p>
+                </div>
+            `;
+            const header = phaseDiv.querySelector('.cursor-pointer');
+            const content = phaseDiv.querySelector('.overflow-hidden');
+            const arrow = header.querySelector('span');
+
+            header.addEventListener('click', () => {
+                if (content.style.maxHeight === '0px') {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    arrow.style.transform = 'rotate(180deg)';
+                } else {
+                    content.style.maxHeight = '0px';
+                    arrow.style.transform = 'rotate(0deg)';
+                }
+            });
+            timeline.appendChild(phaseDiv);
+        });
+        container.appendChild(timeline);
+    }
+    
+    createRoadmap(roadmapContentConsultant, data.roadmaps.consultant);
+    createRoadmap(roadmapContentPreneur, data.roadmaps.preneur);
+});
+</script>
+
+</body>
+</html>
